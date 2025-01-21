@@ -191,8 +191,7 @@ class DNN(Layer):
         deep_input = inputs
 
         for i in range(len(self.hidden_units)):
-            fc = tf.nn.bias_add(tf.tensordot(
-                deep_input, self.kernels[i], axes=(-1, 0)), self.bias[i])
+            fc = tf.nn.bias_add(tf.matmul(deep_input, self.kernels[i]), self.bias[i])
 
             if self.use_bn:
                 fc = self.bn_layers[i](fc, training=training)
